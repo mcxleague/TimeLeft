@@ -1,0 +1,37 @@
+<script>
+  // Set the target date to June 16th at 12:30 PM
+const targetDate = new Date('June 16, 2023 12:30:00');
+
+// Define a function to calculate the number of weekdays between two dates
+function getWeekdayCount(startDate, endDate) {
+  let count = 0;
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    const dayOfWeek = currentDate.getDay();
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Exclude weekends
+      if (!(currentDate.getMonth() === 4 && currentDate.getDate() === 30)) { // Exclude Memorial Day
+        count++;
+      }
+    }
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return count;
+}
+
+// Calculate the number of weekdays between today and the target date
+const today = new Date();
+const weekdayCount = getWeekdayCount(today, targetDate);
+
+// Set up the countdown timer
+const countdownElement = document.getElementById('countdown-label');
+let remainingWeekdayCount = weekdayCount;
+setInterval(() => {
+  remainingWeekdayCount--;
+  if (remainingWeekdayCount >= 0) {
+    countdownElement.textContent = `${remainingWeekdayCount} weekdays until June 16th at 12:30 PM`;
+  } else {
+    countdownElement.textContent = 'June 16th at 12:30 PM has arrived!';
+  }
+}, 1000 * 60 * 60 * 24); // Update once per day
+
+</script>
